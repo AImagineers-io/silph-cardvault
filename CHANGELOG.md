@@ -38,6 +38,10 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 - Async-compatible `BaseModel` shared across models
 - Alembic migration setup
 
+## [0.1.4] – 2025-06-27
+### Added
+- `/health` endpoint for basic service checks with auto-generated OpenAPI docs
+
 ---
 
 ## [Unreleased]
