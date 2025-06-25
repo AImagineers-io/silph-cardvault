@@ -2,36 +2,46 @@
 
 from __future__ import annotations
 
-import uuid
 from datetime import date
+from typing import Any
 
-from sqlalchemy import String, Date, JSON
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import String, Date, Integer, JSON
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .base import Base
 
 
 class Card(Base):
-    """Represents a reference Pokémon card from the PokéTCG catalogue."""
+    """Represents a reference Pokémon card aligned to the PokéTCG schema."""
 
     __tablename__ = "cards"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        primary_key=True,
-        default=uuid.uuid4,
-        nullable=False,
-    )
-    name: Mapped[str] = mapped_column(String(255), nullable=False)
-    set_code: Mapped[str] = mapped_column(String(20), nullable=False)
-    set_name: Mapped[str] = mapped_column(String(100), nullable=False)
-    number: Mapped[str] = mapped_column(String(10), nullable=False)
-    supertype: Mapped[str] = mapped_column(String(50), nullable=False)
-    subtypes: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
-    rarity: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    artist: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    set: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    series: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    publisher: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    generation: Mapped[str | None] = mapped_column(String(50), nullable=True)
     release_date: Mapped[date | None] = mapped_column(Date, nullable=True)
-    images: Mapped[dict[str, str] | None] = mapped_column(JSON, nullable=True)
-    tcgplayer_id: Mapped[str | None] = mapped_column(String(64), unique=True, nullable=True)
-
+    artist: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    name: Mapped[str] = mapped_column(String(255), nullable=False)
+    set_num: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    types: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
+    supertype: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    subtypes: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
+    level: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    hp: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    evolvesFrom: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    evolvesTo: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
+    abilities: Mapped[list[dict[str, Any]] | None] = mapped_column(JSON, nullable=True)
+    attacks: Mapped[list[dict[str, Any]] | None] = mapped_column(JSON, nullable=True)
+    weaknesses: Mapped[list[dict[str, Any]] | None] = mapped_column(JSON, nullable=True)
+    retreatCost: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
+    convertedRetreatCost: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    rarity: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    flavorText: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    nationalPokedexNumbers: Mapped[list[int] | None] = mapped_column(JSON, nullable=True)
+    legalities: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    resistances: Mapped[list[dict[str, Any]] | None] = mapped_column(JSON, nullable=True)
+    rules: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
+    regulationMark: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    ancientTrait: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
