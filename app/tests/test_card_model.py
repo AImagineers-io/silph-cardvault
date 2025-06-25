@@ -16,6 +16,36 @@ def test_card_table_created():
 
     # Verify columns exist
     columns = {c["name"] for c in inspector.get_columns("cards")}
-    expected = {"id", "name", "set_code", "set_name", "number", "supertype", "subtypes", "rarity", "artist", "release_date", "images", "tcgplayer_id"}
+    expected = {
+        "id",
+        "set",
+        "series",
+        "publisher",
+        "generation",
+        "release_date",
+        "artist",
+        "name",
+        "set_num",
+        "types",
+        "supertype",
+        "subtypes",
+        "level",
+        "hp",
+        "evolvesFrom",
+        "evolvesTo",
+        "abilities",
+        "attacks",
+        "weaknesses",
+        "retreatCost",
+        "convertedRetreatCost",
+        "rarity",
+        "flavorText",
+        "nationalPokedexNumbers",
+        "legalities",
+        "resistances",
+        "rules",
+        "regulationMark",
+        "ancientTrait",
+    }
     assert expected.issubset(columns)
 
