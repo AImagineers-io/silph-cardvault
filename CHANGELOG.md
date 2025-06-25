@@ -41,11 +41,38 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 ## [0.1.4] – 2025-06-27
 ### Added
 - `/health` endpoint for basic service checks with auto-generated OpenAPI docs
+- Added services logic, normalize, store card data pulled from PokeTCG.io API
 
 ---
 
 ## [Unreleased]
 ### Planned
+- Build Functions to support endpoints for this microservices
+Global Card Reference
+  - Fetch Card Data  - Get raw data for a specific card from PokeTCG.io
+  - Normalize Card Data - Convert PokeTCG data to match your DB Model
+  - Store Card - Insert/Update a card record in your DB
+  - Get all card ID available in PokeTCG.io
+  - Get all card ID available in DB
+  - Get missing cards from DB
+  - Bulk Fetch Cards IDs- Get all raw data for all specific card ids missing in DB from POkeTCG.io
+  - Sync Card Batch - Batch import multiple card (fetch, normalize, store to DB)
+  - search card - return filtered cards
+  - get all sets
+
+USer Collection Logic
+  - Add card to collection
+  - Update Collection entry
+  - Remove card from collection
+  - get user collection
+  - get card with user info
+  - bulk add collection
+
+Utility
+  - Get service Version
+  - Validate Card Id
+  - Check CArd Exists Locally
+
 - Normalize and store card data pulled from the PokéTCG.io API
 - Create a sync pipeline that pulls cards from the API in batches and updates/inserts records safely
 - Add internal logging and basic rate-limit protection to the sync tool
