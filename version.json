@@ -1,6 +1,6 @@
 {
   "name": "silph-cardvault",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pokémon card catalogue and user collection service for Project SILPH.",
   "env": "local",
   "last_updated": "2025-06-24",

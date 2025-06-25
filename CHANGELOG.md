@@ -21,10 +21,15 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 
 ---
 
+## [0.1.1] – 2025-06-24
+### Added
+- Initial database schema with `Card` model representing global Pokémon cards
+
+---
+
 ## [Unreleased]
 ### Planned
 
-- Design and implement the database schema for reference Pokémon cards (Global Card model)
 - Design and implement the user-owned card model (CollectionEntry) with tracking fields (condition, quantity, price paid, etc.)
 - Build modular, async-compatible SQLAlchemy models with a shared `BaseModel`
 - Normalize and store card data pulled from the PokéTCG.io API
