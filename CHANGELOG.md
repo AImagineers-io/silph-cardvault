@@ -33,10 +33,16 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 
 ---
 
+## [0.1.3] – 2025-06-26
+### Added
+- Async-compatible `BaseModel` shared across models
+- Alembic migration setup
+
+---
+
 ## [Unreleased]
 ### Planned
 
-- Build modular, async-compatible SQLAlchemy models with a shared `BaseModel`
 - Normalize and store card data pulled from the PokéTCG.io API
 - Create a sync pipeline that pulls cards from the API in batches and updates/inserts records safely
 - Add internal logging and basic rate-limit protection to the sync tool

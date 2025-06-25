@@ -3,14 +3,14 @@
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 
-from app.models.base import Base
+from app.models.base import BaseModel
 from app.models.card import Card
 
 
 def test_card_table_created():
     """Card model should create the cards table."""
     engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
+    BaseModel.metadata.create_all(engine)
     inspector = inspect(engine)
     assert "cards" in inspector.get_table_names()
 

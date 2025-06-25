@@ -2,14 +2,14 @@
 
 from sqlalchemy import create_engine, inspect
 
-from app.models.base import Base
+from app.models.base import BaseModel
 from app.models.collection import CollectionEntry
 
 
 def test_collection_entry_table_created() -> None:
     """CollectionEntry model should create the collection_entries table."""
     engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
+    BaseModel.metadata.create_all(engine)
     inspector = inspect(engine)
     assert "collection_entries" in inspector.get_table_names()
 

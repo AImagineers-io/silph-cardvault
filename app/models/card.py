@@ -8,10 +8,10 @@ from typing import Any
 from sqlalchemy import String, Date, Integer, JSON
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .base import Base
+from .base import BaseModel
 
 
-class Card(Base):
+class Card(BaseModel):
     """Represents a reference Pokémon card aligned to the PokéTCG schema."""
 
     __tablename__ = "cards"
