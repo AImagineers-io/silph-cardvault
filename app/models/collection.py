@@ -7,10 +7,10 @@ from datetime import date
 from sqlalchemy import String, Integer, Numeric, Date, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .base import Base
+from .base import BaseModel
 
 
-class CollectionEntry(Base):
+class CollectionEntry(BaseModel):
     """Represents a user's owned card with tracking fields."""
 
     __tablename__ = "collection_entries"

@@ -3,7 +3,11 @@
 from sqlalchemy.orm import DeclarativeBase
 
 
-class Base(DeclarativeBase):
-    """Base for all database models."""
+class BaseModel(DeclarativeBase):
+    """Base class for all SQLAlchemy models."""
 
     pass
+
+# Backwards compatible alias
+Base = BaseModel
+

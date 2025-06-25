@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 
-from app.models.base import Base
+from app.models.base import BaseModel
 from app.db.session import engine
 
 app = FastAPI(title="silph-cardvault")
@@ -13,7 +13,7 @@ async def on_startup() -> None:
     """Create database tables on startup."""
 
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(BaseModel.metadata.create_all)
 
 
 @app.get("/version")
