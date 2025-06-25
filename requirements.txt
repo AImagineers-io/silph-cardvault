@@ -4,3 +4,4 @@ fastapi
 uvicorn[standard]
 asyncpg
 alembic
+pydantic<2.0

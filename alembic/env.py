@@ -1,5 +1,3 @@
-"""Alembic environment with async database support."""
-
 from __future__ import annotations
 
 import asyncio
@@ -44,11 +42,18 @@ async def run_migrations_online() -> None:
         poolclass=pool.NullPool,
     )
 
-    async with connectable.begin() as connection:
-        await connection.run_sync(
-            context.configure, connection=connection, target_metadata=target_metadata
-        )
-        await connection.run_sync(context.run_migrations)
+    async with connectable.connect() as connection:
+        def do_migrations(sync_connection):
+            context.configure(
+                connection=sync_connection,
+                target_metadata=target_metadata,
+                compare_type=True,
+            )
+            with context.begin_transaction():
+                context.run_migrations()
+
+        await connection.run_sync(do_migrations)
+
     await connectable.dispose()
 
 
