@@ -46,7 +46,6 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 
 ## [Unreleased]
 ### Planned
-
 - Normalize and store card data pulled from the PokéTCG.io API
 - Create a sync pipeline that pulls cards from the API in batches and updates/inserts records safely
 - Add internal logging and basic rate-limit protection to the sync tool
