@@ -33,19 +33,33 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 
 ---
 
-## [0.1.3] – 2025-06-26
+## [0.1.3] – 2025-06-25
 ### Added
 - Async-compatible `BaseModel` shared across models
 - Alembic migration setup
 
-## [0.1.4] – 2025-06-27
+## [0.1.4] – 2025-06-25
 ### Added
 - `/health` endpoint for basic service checks with auto-generated OpenAPI docs
-- added Fetch Card Data Logic - Global Card Reference
-- added Normalize Card Data Logic - Convert PokeTCG Data to match DB model
-- added Store Card Logic- Insert/Update a card record in your DB
-- Added import_card logic - Fetch, Normalize, Store a single card by ID
 ---
+
+## [0.1.6] – 2025-06-25
+### Added
+- Full card sync loop using ID-based diffing from PokéTCG.io
+- `fetch_all_remote_card_ids()` to pull all card IDs via paginated API
+- `get_all_local_card_ids(session)` to retrieve existing card IDs from local DB
+- `sync_missing_cards(session)` to compute missing IDs and import them safely
+- Updated `import_card()` flow: fetch → normalize → store
+- Safe `store_card()` logic using SQLAlchemy upsert pattern
+- All sync logic contained within `GlobalCardService` class
+- Protected against PokéTCG pagination reordering issues by avoiding page-based state
+
+### Changed
+- Switched from page-based sync idea to safer ID-diff model for resilience and correctness
+
+### Notes
+- Sync logic is production-safe and can be wired into CLI or admin-only endpoints.
+- Rate-limiting, logging, or batch throttling may be added in future minor releases.
 
 ## [Unreleased]
 ### Planned

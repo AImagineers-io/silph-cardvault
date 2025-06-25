@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import date, datetime
 from app.models.card import Card
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
 load_dotenv()
 
@@ -119,3 +120,63 @@ class GlobalCardService:
         normalized = self.normalize_card_data(raw_data)
         return await self.store_card(normalized, session)
     
+
+
+    async def fetch_all_remote_card_ids(self) -> list[str]:
+        """
+        Fetch all Pokemon Card IDs from PokeTCG.io using pagination
+        Returns a list of card IDs
+        """
+        all_ids = []
+        page = 1
+        page_size = 250
+
+        async with httpx.AsyncClient() as client:
+            while True:
+                url = f"{self.BASE_URL}?page={page}&pageSize={page_size}"
+                response = await client.get(url, headers=self.headers)
+                response.raise_for_status()
+
+                data = response.json()["data"]
+                if not data:
+                    break
+                
+                ids = [card["id"] for card in data]
+                all_ids.extend(ids)
+
+                page += 1
+        
+        return all_ids
+    
+    async def get_all_local_cards_ids(self, session: AsyncSession) -> set[str]:
+        """
+        Fetch all cards IDS currently stored in the local database.
+        Returns a set of card IDs
+        """
+        result = await session.execute(
+            select(Card.id)
+        )
+        rows = result.scalars().all()
+        return set(rows)
+    
+    async def sync_missing_cards(self, session: AsyncSession) -> int:
+        """"
+        Fetch missing card IDs and import only those not yet in local DB
+        Return the number of cards imported.
+        """
+        remote_ids = set(await self.fetch_all_remote_card_ids())
+        local_ids = await self.get_all_local_cards_ids(session)
+        missing_ids = remote_ids - local_ids
+
+        print(f"[SYNC] Missing cards to import: {len(missing_ids)}")
+
+        imported = 0
+        for card_id in missing_ids:
+            try:
+                await self.import_card(card_id, session)
+                imported += 1
+            except Exception as e:
+                print(f"[ERROR] Failed to import card {card_id}: {e}")
+        
+        print(f"[SYNC COMPLETE] Imported {imported} new cards.")
+        return imported
