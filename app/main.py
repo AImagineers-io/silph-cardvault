@@ -1,0 +1,27 @@
+"""FastAPI application for the silph-cardvault service."""
+
+from fastapi import FastAPI
+
+from app.models.base import Base
+from app.db.session import engine
+
+app = FastAPI(title="silph-cardvault")
+
+
+@app.on_event("startup")
+async def on_startup() -> None:
+    """Create database tables on startup."""
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+
+@app.get("/version")
+async def get_version() -> dict[str, str]:
+    """Return service version metadata."""
+
+    import json
+    from pathlib import Path
+
+    data = json.loads(Path("version.json").read_text())
+    return data
