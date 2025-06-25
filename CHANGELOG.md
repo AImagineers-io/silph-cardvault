@@ -41,8 +41,10 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 ## [0.1.4] – 2025-06-27
 ### Added
 - `/health` endpoint for basic service checks with auto-generated OpenAPI docs
-- Added services logic, normalize, store card data pulled from PokeTCG.io API
-
+- added Fetch Card Data Logic - Global Card Reference
+- added Normalize Card Data Logic - Convert PokeTCG Data to match DB model
+- added Store Card Logic- Insert/Update a card record in your DB
+- Added import_card logic - Fetch, Normalize, Store a single card by ID
 ---
 
 ## [Unreleased]
