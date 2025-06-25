@@ -107,13 +107,13 @@ The service maintains two core tables:
 
 ```
 +-----------+      +--------------------+
-|  cards    |1   *| collection_entries |
+|  cards    |1    *| collection_entries |
 +-----------+      +--------------------+
 | id (PK)   |<-----| card_id (FK)       |
 | name      |      | user_id            |
-| ...       |      | quantity           |
-+-----------+      | condition          |
-                   | price_paid         |
+| set       |      |  quantity          |  
+| ...       |      | condition          |
++-----------+      | price_paid         |
                    | acquired_at        |
                    +--------------------+
 ```
