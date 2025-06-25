@@ -101,6 +101,25 @@ If you're an AI agent writing or refactoring code:
 - Avoid unnecessary abstraction (especially early).
 - Every file or function you touch must include a short docstring that explains its purpose.
 
+## Data Model ERD
+
+The service maintains two core tables:
+
+```
++-----------+      +--------------------+
+|  cards    |1   *| collection_entries |
++-----------+      +--------------------+
+| id (PK)   |<-----| card_id (FK)       |
+| name      |      | user_id            |
+| ...       |      | quantity           |
++-----------+      | condition          |
+                   | price_paid         |
+                   | acquired_at        |
+                   +--------------------+
+```
+
+`CollectionEntry.card_id` references `Card.id`, forming a one-to-many
+relationship from cards to user-owned entries.
 ---
 ## Updates
 This file will be updated continuously as the project evolves. Any structural changes or rules added here are binding across the entire `silph-cardvault` service.
