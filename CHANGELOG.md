@@ -27,10 +27,15 @@ This project uses [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH)
 
 ---
 
+## [0.1.2] – 2025-06-25
+### Added
+- `CollectionEntry` model for tracking user-owned cards
+
+---
+
 ## [Unreleased]
 ### Planned
 
-- Design and implement the user-owned card model (CollectionEntry) with tracking fields (condition, quantity, price paid, etc.)
 - Build modular, async-compatible SQLAlchemy models with a shared `BaseModel`
 - Normalize and store card data pulled from the PokéTCG.io API
 - Create a sync pipeline that pulls cards from the API in batches and updates/inserts records safely
