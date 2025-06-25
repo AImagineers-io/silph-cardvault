@@ -1,2 +1,5 @@
 sqlalchemy>=2.0
 pytest
+fastapi
+uvicorn[standard]
+asyncpg
