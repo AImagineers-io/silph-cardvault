@@ -4,5 +4,11 @@ fastapi
 uvicorn[standard]
 asyncpg
 alembic
+<<<<<<< HEAD
 pydantic>=2.0
 pydantic-settings>=2.0
+=======
+pydantic<2.0
+httpx
+aiosqlite
+>>>>>>> e29c02f933f79cfd347a77bfcca60dc4b581911e
